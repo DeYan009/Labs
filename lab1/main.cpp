@@ -2,16 +2,14 @@
 #include <iostream>
 #include <math.h>
 #include <iomanip>
+#include <typeinfo>
+#include <limits>
+#include <locale>
+
 
 int main() 
 {
-	float f1 = 11.0/3.0;
-	float f2 = 0.000001f;
-	std::cout << std::setprecision(20) << f1 << std::endl;
-	std::cout << std::setprecision(20) << f1+f2 << std::endl;
-	return 0;
-
-
+	setlocale(LC_ALL, "Russian");
 	// Типы данных
 	// 1. Целочисленные
 	// - char, 1 байт, -128..127
@@ -34,29 +32,53 @@ int main()
 	// (int)c - приведение типа из char в int, c-style cast
 
 	//const double pi = acos(-1);
+	std::cout << "Тип: " << "char" << std::endl;
+    std::cout << "Размер: " << sizeof(char) << " байт" << std::endl;
+    std::cout << "Минимальное значение: " << static_cast<int>(std::numeric_limits<char>::min()) << std::endl;
+    std::cout << "Максимальное значение: " << static_cast<int>(std::numeric_limits<char>::max()) << std::endl;
+    std::cout << std::endl;
 
-	int sum = 0;
-	sum += 10; // sum = sum + 10;
-	std::cout << sum << std::endl;
+	std::cout << "Тип: " << "short" << std::endl;
+    std::cout << "Размер: " << sizeof(short) << " байт" << std::endl;
+    std::cout << "Минимальное значение: " << static_cast<int>(std::numeric_limits<short>::min()) << std::endl;
+    std::cout << "Максимальное значение: " << static_cast<int>(std::numeric_limits<short>::max()) << std::endl;
+    std::cout << std::endl;
 
-	int a, b;
+	std::cout << "Тип: " << "int" << std::endl;
+    std::cout << "Размер: " << sizeof(int) << " байт" << std::endl;
+    std::cout << "Минимальное значение: " << static_cast<int>(std::numeric_limits<int>::min()) << std::endl;
+    std::cout << "Максимальное значение: " << static_cast<int>(std::numeric_limits<int>::max()) << std::endl;
+    std::cout << std::endl;
 
-	int numsSum;  // lower camel case
-	int NumSum; // upper camel case
-	int Num_Sum; // snake case
-	int sumOfDigits;
+	std::cout << "Тип: " << "long long" << std::endl;
+    std::cout << "Размер: " << sizeof(long long) << " байт" << std::endl;
+    std::cout << "Минимальное значение: " << static_cast<long long>(std::numeric_limits<long long>::min()) << std::endl;
+    std::cout << "Максимальное значение: " << static_cast<long long>(std::numeric_limits<long long>::max()) << std::endl;
+    std::cout << std::endl;
 
-	// https://ru.wikipedia.org/wiki/%D0%9F%D0%B8_(%D1%87%D0%B8%D1%81%D0%BB%D0%BE)
-	const double pi = acos(-1);
+	std::cout << "Тип: " << "unsigned int" << std::endl;
+    std::cout << "Размер: " << sizeof(char) << " байт" << std::endl;
+    std::cout << "Минимальное значение: " << static_cast<unsigned int>(std::numeric_limits<unsigned int>::min()) << std::endl;
+    std::cout << "Максимальное значение: " << static_cast<unsigned int>(std::numeric_limits<unsigned int>::max()) << std::endl;
+    std::cout << std::endl;
 
-	std::cin >> a >> b;
+	std::cout << "Тип: " << "float" << std::endl;
+    std::cout << "Размер: " << sizeof(char) << " байт" << std::endl;
+    std::cout << "Минимальное значение: " << static_cast<float>(std::numeric_limits<float>::min()) << std::endl;
+    std::cout << "Максимальное значение: " << static_cast<float>(std::numeric_limits<float>::max()) << std::endl;
+    std::cout << std::endl;
 
-	if(b != 0)
-		std::cout << a/b << std::endl;	
-	else
-		std::cout << "Divide by zero " << __FILE__ << " " << __LINE__ << std::endl;	
-	
+	std::cout << "Тип: " << "double" << std::endl;
+    std::cout << "Размер: " << sizeof(char) << " байт" << std::endl;
+    std::cout << "Минимальное значение: " << static_cast<double>(std::numeric_limits<double>::min()) << std::endl;
+    std::cout << "Максимальное значение: " << static_cast<double>(std::numeric_limits<double>::max()) << std::endl;
+    std::cout << std::endl;
 
-	
+	std::cout << "Тип: " << "bool" << std::endl;
+    std::cout << "Размер: " << sizeof(char) << " байт" << std::endl;
+    std::cout << "Минимальное значение: " << static_cast<bool>(std::numeric_limits<bool>::min()) << std::endl;
+    std::cout << "Максимальное значение: " << static_cast<bool>(std::numeric_limits<bool>::max()) << std::endl;
+    std::cout << std::endl;
+
 	return 0;
 }
