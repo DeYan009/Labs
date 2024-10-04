@@ -9,7 +9,7 @@
 
 int main() 
 {
-	setlocale(LC_ALL, "Russian");
+	setlocale(LC_ALL, "Rus");
 	// Типы данных
 	// 1. Целочисленные
 	// - char, 1 байт, -128..127
