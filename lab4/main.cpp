@@ -1,13 +1,9 @@
-// Директива препроцессора
 #include <iostream>
-#include <math.h>
 #include <iomanip>
-#include <locale>
 
 
 int main() 
 {
-	setlocale(LC_ALL, "Rus");
     // // ex 1
     // int A;
     // int B;
@@ -18,23 +14,8 @@ int main()
     // std::cin >> A;
     // std::cin >> B;
     // std::cin >> C;
-    // if ((A + B) % C == 0)
-    //     {
-    //         t1 = 1;
-    //     }
-    // else
-    //     {
-    //         t1 = 0;
-    //     }
-    
-    // if (C % B == 0)
-    //     {
-    //         t2 = 1;
-    //     }
-    // else
-    //     {
-    //         t2 = 0;
-    //     }
+    // t1 = (A + B) % C == 0;
+    // t2 = C % B == 0;
     
     // if (t1 && t2)
     // {
@@ -52,28 +33,39 @@ int main()
     // // ex 2
     // int N;
     // std::cin >> N;
-    // switch(N + 1)
+
+    // if (std::cin.fail()) // Проверка на корректность N
     // {
-    //     case 1:std::cout << "all good" << std::endl;
+    //     std::cout << "incorret N" << std::endl;
+    //     return 1;
+    // }
+
+    // switch(N)
+    // {
+    //     case 0:std::cout << "all good" << std::endl;
     //             break;
-    //     case 2:std::cout << "error file read" << std::endl;
+    //     case 1:std::cout << "reading file error" << std::endl;
     //             break;
-    //     case 3:std::cout << "error file write" << std::endl;
+    //     case 2:std::cout << "writing file error" << std::endl;
     //             break;
-    //     case 4:std::cout << "polya" << std::endl;
+    //     case 3:std::cout << "not all fields are defined" << std::endl;
     //             break;
-    //     default:std::cout << "error N" << std::endl;
+    //     default:std::cout << "unknown N" << std::endl;
     //             break;
     // }
 
     // ex 3
     int x;
     std::cin >> x;
-    if (x == 1)
+    switch(x)
     {
-        std::cout << "Positive number" << std::endl;
-        return 0;
+        case -1:std::cout <<  "Negative number" << std::endl;
+                break;
+        case 1:std::cout <<  "Positive number" << std::endl;
+                break;
+        default:std::cout << "incorrect x" << std::endl;
     }
-    std::cout << "Negative number" << std::endl;
+
+
 	return 0;
 }
