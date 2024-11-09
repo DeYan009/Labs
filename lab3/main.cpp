@@ -1,15 +1,14 @@
-// Директива препроцессора
 #include <iostream>
 #include <math.h>
 #include <iomanip>
 #include <typeinfo>
 #include <limits>
 #include <locale>
-
+#include <windows.h>
 
 int main() 
 {
-	setlocale(LC_ALL, "Rus");
+	SetConsoleOutputCP(CP_UTF8);
     long long x;
     long long i;
     std::cin >> x;
