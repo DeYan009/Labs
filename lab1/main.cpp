@@ -4,12 +4,12 @@
 #include <iomanip>
 #include <typeinfo>
 #include <limits>
-#include <locale>
+#include <windows.h>
 
 
 int main() 
 {
-	setlocale(LC_ALL, "Rus");
+	SetConsoleOutputCP(CP_UTF8);
 	// Типы данных
 	// 1. Целочисленные
 	// - char, 1 байт, -128..127

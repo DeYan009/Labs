@@ -30,41 +30,46 @@ int main()
     //     std::cout << A - B + C << std::endl;
     // }
 
-    // ex 2
-    int N;
-    std::cin >> N;
+//     // ex 2
+//     int N;
+//     std::cin >> N;
 
-    if (std::cin.fail()) // Проверка на корректность N
-    {
-        std::cout << "incorret N" << std::endl;
-        return 1;
-    }
+//     if (std::cin.fail()) // Проверка на корректность N
+//     {
+//         std::cout << "incorret N" << std::endl;
+//         return 1;
+//     }
 
-    switch(N)
-    {
-        case 0:std::cout << "all good" << std::endl;
-                //break;
-        case 1:std::cout << "reading file error" << std::endl;
-                break;
-        case 2:std::cout << "writing file error" << std::endl;
-                break;
-        case 3:std::cout << "not all fields are defined" << std::endl;
-                break;
-        default:std::cout << "unknown N" << std::endl;
-                break;
-    }
+//     switch(N)
+//     {
+//         case 0:std::cout << "all good" << std::endl;
+//                 //break;
+//         case 1:std::cout << "reading file error" << std::endl;
+//                 break;
+//         case 2:std::cout << "writing file error" << std::endl;
+//                 break;
+//         case 3:std::cout << "not all fields are defined" << std::endl;
+//                 break;
+//         default:std::cout << "unknown N" << std::endl;
+//                 break;
+//     }
 
-    // ex 3
+//     // ex 3
+//     int x;
+//     std::cin >> x;
+//     switch(x)
+//     {
+//         case -1:std::cout <<  "Negative number" << std::endl;
+//                 break;
+//         case 1:std::cout <<  "Positive number" << std::endl;
+//                 break;
+//         default:std::cout << "incorrect x" << std::endl;
+//     }
+
+    // ex 3 тернарное
     int x;
     std::cin >> x;
-    switch(x)
-    {
-        case -1:std::cout <<  "Negative number" << std::endl;
-                break;
-        case 1:std::cout <<  "Positive number" << std::endl;
-                break;
-        default:std::cout << "incorrect x" << std::endl;
-    }
+    std::cout << (x == 1 ? "Positive number" : (x == -1 ? "Negative number" : "incorrect x"));
 
 
 	return 0;
