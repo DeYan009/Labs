@@ -1,9 +1,10 @@
 // Директива препроцессора
 #include <iostream>
-#include <math.h>
+// #include <math.h>
 #include <iomanip>
 #include <typeinfo>
 #include <limits>
+#define NOMINMAX
 #include <windows.h>
 
 
@@ -32,7 +33,7 @@ int main()
 	// (int)c - приведение типа из char в int, c-style cast
 
 	//const double pi = acos(-1);
-	std::cout << "Тип: " << "char" << std::endl;
+    std::cout << "Тип: " << "char" << std::endl;
     std::cout << "Размер: " << sizeof(char) << " байт" << std::endl;
     std::cout << "Минимальное значение: " << static_cast<int>(std::numeric_limits<char>::min()) << std::endl;
     std::cout << "Максимальное значение: " << static_cast<int>(std::numeric_limits<char>::max()) << std::endl;
@@ -76,8 +77,8 @@ int main()
 
 	std::cout << "Тип: " << "bool" << std::endl;
     std::cout << "Размер: " << sizeof(char) << " байт" << std::endl;
-    std::cout << "Минимальное значение: " << static_cast<bool>(std::numeric_limits<bool>::min()) << std::endl;
-    std::cout << "Максимальное значение: " << static_cast<bool>(std::numeric_limits<bool>::max()) << std::endl;
+    std::cout << "Минимальное значение: " << std::numeric_limits<bool>::min() << std::endl;
+    std::cout << "Максимальное значение: " << std::numeric_limits<bool>::max() << std::endl;
     std::cout << std::endl;
 
 	return 0;
