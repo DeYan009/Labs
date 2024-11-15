@@ -4,68 +4,55 @@
 
 int main() 
 {
-    // // ex 1
-    // int A;
-    // int B;
-    // int C;
-    // bool t1;
-    // bool t2;
+	// int n;
+	// std::cin >> n;
+    // int mas[10000];
+	// for(int i=0;i<n;i++)
+	// {
+	// 	std::cin >> mas[i];
+	// }
 
-    // std::cin >> A;
-    // std::cin >> B;
-    // std::cin >> C;
-    // t1 = (A + B) % C == 0;
-    // t2 = C % B == 0;
-    
-    // if (t1 && t2)
-    // {
-    //     std::cout << (A + B)/C - C/B << std::endl;
-    // }
-    // else if (t1 && !t2)
-    // {
-    //     std::cout << (A + B)/C + B * C << std::endl;
-    // }
-    // else
-    // {
-    //     std::cout << A - B + C << std::endl;
-    // }
+	// for(int i=0;i<n-1;i++)
+	// 	for(int j=i+1;j<n;j++)
+	// 	{
+    //     if (mas[i] < mas[j])
+	// 		{
+	// 			int tmp = mas[i];
+	// 			mas[i] = mas[j];
+	// 			mas[j] = tmp;
+	// 		}
+	// 	}
 
-    // // ex 2
-    // int N;
-    // std::cin >> N;
+	// for(int i=0;i<n;i++)
+	// 	std::cout << mas[i] << std::endl;
+    // ex 1
+    int n;
+	std::cin >> n;
+    int mas[10000];
+	for(int i=0;i<n;i++)
+	{
+		mas[i] = i + 1;
+	}
 
-    // if (std::cin.fail()) // Проверка на корректность N
-    // {
-    //     std::cout << "incorret N" << std::endl;
-    //     return 1;
-    // }
+	for(int i=0;i<n-1;i++)
+		for(int j=i+1;j<n;j++)
+		{
+        if (mas[i] < mas[j])
+			{
+				int tmp = mas[i];
+				mas[i] = mas[j];
+				mas[j] = tmp;
+			}
+		}
 
-    // switch(N)
-    // {
-    //     case 0:std::cout << "all good" << std::endl;
-    //             break;
-    //     case 1:std::cout << "reading file error" << std::endl;
-    //             break;
-    //     case 2:std::cout << "writing file error" << std::endl;
-    //             break;
-    //     case 3:std::cout << "not all fields are defined" << std::endl;
-    //             break;
-    //     default:std::cout << "unknown N" << std::endl;
-    //             break;
-    // }
+	for(int i=0;i<n;i++)
+		std::cout << mas[i] << std::endl;
+
+    // ex 2
 
     // ex 3
-    int x;
-    std::cin >> x;
-    switch(x)
-    {
-        case -1:std::cout <<  "Negative number" << std::endl;
-                break;
-        case 1:std::cout <<  "Positive number" << std::endl;
-                break;
-        default:std::cout << "incorrect x" << std::endl;
-    }
 
+    // ex 4
 
 	return 0;
 }
