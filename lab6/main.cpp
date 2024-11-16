@@ -171,29 +171,29 @@ int main()
 
 	}
 
-	// for(int i=0;i<n;i++)
-	// {
-	// 	if (i != imax)
-	// 	{
-	// 		for(int j=0;j<m;j++)
-	// 			std::cout << a[i][j] << " ";
-	// 	}
-	// 	else
-	// 	{
-	// 		for(int j=0;j<m;j++)
-	// 		{	
-	// 			a[i][j] = maxs;
-	// 			std::cout << a[i][j] << " ";
-	// 		}
-	// 	}
-	// 	std::cout << std::endl;
-	// }
 	for(int i=0;i<n;i++)
 	{
-		for(int j=0;j<m;j++)
-			std::cout << a[i][j] << " ";
+		if (i != imax)
+		{
+			for(int j=0;j<m;j++)
+				std::cout << a[i][j] << " ";
+		}
+		else
+		{
+			for(int j=0;j<m;j++)
+			{	
+				a[i][j] = maxs;
+				std::cout << a[i][j] << " ";
+			}
+		}
 		std::cout << std::endl;
 	}
+	// for(int i=0;i<n;i++)
+	// {
+	// 	for(int j=0;j<m;j++)
+	// 		std::cout << a[i][j] << " ";
+	// 	std::cout << std::endl;
+	// }
     // ex 4
 
 	return 0;
