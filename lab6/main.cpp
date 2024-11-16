@@ -27,50 +27,51 @@ int main()
 	// 	std::cout << mas[i] << std::endl;
 
 
-    // // ex 1
-    // int n;
-	// std::cin >> n;
-    // int mas[10000];
-	// bool prime = false;
-	// bool is_prime = true;
-	// for(int i=0;i<n;i++)
-	// {
-	// 	std::cin >> mas[i];
-	// 	if (!prime)
-	// 		{
-	// 			if (mas[i] == 1)
-	// 				continue;
-	// 			for(int j=2;j*j<=mas[i];j++)
-	// 			{
-	// 				if (mas[i] % j == 0)
-	// 					{
-	// 						is_prime = false;
-	// 						break;
-	// 					}
-	// 			if (is_prime)
-	// 			{
-	// 				prime = true;
-	// 			}
-	// 			}
-	// 		}
+    // ex 1
+    int n;
+	std::cin >> n;
+    int mas[10000];
+	bool prime = false;
+	bool is_prime = true;
+	for(int i=0;i<n;i++)
+	{
+		std::cin >> mas[i];
+		is_prime = true;
+		if (!prime)
+			{
+				if (mas[i] == 1)
+					continue;
+				for(int j=2;j*j<=mas[i];j++)
+				{
+					if (mas[i] % j == 0)
+						{
+							is_prime = false;
+							break;
+						}
+				if (is_prime)
+				{
+					prime = true;
+				}
+				}
+			}
 
-	// }
-	// if (!prime)
-	// 	{
-	// 		for(int i=0;i<n-1;i++)
-	// 			for(int j=i+1;j<n;j++)
-	// 		{
-    //     		if (mas[i] < mas[j])
-	// 			{
-	// 				int tmp = mas[i];
-	// 				mas[i] = mas[j];
-	// 				mas[j] = tmp;
-	// 			}
-	// 		}
-	// 	}
+	}
+	if (!prime)
+		{
+			for(int i=0;i<n-1;i++)
+				for(int j=i+1;j<n;j++)
+			{
+        		if (mas[i] < mas[j])
+				{
+					int tmp = mas[i];
+					mas[i] = mas[j];
+					mas[j] = tmp;
+				}
+			}
+		}
 
-	// for(int i=0;i<n;i++)
-	// 	std::cout << mas[i] << std::endl;
+	for(int i=0;i<n;i++)
+		std::cout << mas[i] << std::endl;
 
     // // ex 2
 	// int n;
@@ -149,51 +150,51 @@ int main()
 	// for(int i=0;i<n;i++)
 	// 	std::cout << a[i] << std::endl;
 
-    // ex 3
-	int a[100][100];
-	int n,m;
-	int s;
-	int maxs=INT32_MIN;
-	int imax;
-	std::cin >> n >> m;
-	for(int i=0;i<n;i++)
-	{	s = 0;
-		for(int j=0;j<m;j++)
-		{
-			std::cin >> a[i][j];
-			s += a[i][j];
-		}
-		if (s > maxs)
-			{
-				maxs = s;
-				imax = i;
-			}
+    // // ex 3
+	// int a[100][100];
+	// int n,m;
+	// int s;
+	// int maxs=INT32_MIN;
+	// int imax;
+	// std::cin >> n >> m;
+	// for(int i=0;i<n;i++)
+	// {	s = 0;
+	// 	for(int j=0;j<m;j++)
+	// 	{
+	// 		std::cin >> a[i][j];
+	// 		s += a[i][j];
+	// 	}
+	// 	if (s > maxs)
+	// 		{
+	// 			maxs = s;
+	// 			imax = i;
+	// 		}
 
-	}
+	// }
 
-	for(int i=0;i<n;i++)
-	{
-		if (i != imax)
-		{
-			for(int j=0;j<m;j++)
-				std::cout << a[i][j] << " ";
-		}
-		else
-		{
-			for(int j=0;j<m;j++)
-			{	
-				a[i][j] = maxs;
-				std::cout << a[i][j] << " ";
-			}
-		}
-		std::cout << std::endl;
-	}
 	// for(int i=0;i<n;i++)
 	// {
-	// 	for(int j=0;j<m;j++)
-	// 		std::cout << a[i][j] << " ";
+	// 	if (i != imax)
+	// 	{
+	// 		for(int j=0;j<m;j++)
+	// 			std::cout << a[i][j] << " ";
+	// 	}
+	// 	else
+	// 	{
+	// 		for(int j=0;j<m;j++)
+	// 		{	
+	// 			a[i][j] = maxs;
+	// 			std::cout << a[i][j] << " ";
+	// 		}
+	// 	}
 	// 	std::cout << std::endl;
 	// }
+	// // for(int i=0;i<n;i++)
+	// // {
+	// // 	for(int j=0;j<m;j++)
+	// // 		std::cout << a[i][j] << " ";
+	// // 	std::cout << std::endl;
+	// // }
     // ex 4
 
 	return 0;
