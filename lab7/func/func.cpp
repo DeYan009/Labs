@@ -79,10 +79,31 @@ void Write(int mas[N_Max][N_Max], int n)
 	}
 }
 
-// void Sort(int mas[N_Max][N_Max], int n)
-// {
-// 	for(int i=0;i<n-1;i++)
-// 		for(int j = i + 1; j<n;j++)
-// 			if(mas[i] > mas[j])
-// 				swap(mas[i], mas[j]);
-// }
+void Sort(int mas[N_Max][N_Max], int n)
+{
+	int products[N_Max];
+
+    for (int i=0;i<n;i++)
+	{
+        products[i] = 1;
+        for (int j=0; j<n; j++)
+		{
+            products[i] *= mas[i][j];
+        }
+    }
+
+    for (int i=0;i<n-1;i++)
+	{
+        for (int j=0;j<n-i-1;j++)
+		{
+            if (products[j] < products[j + 1])
+			{
+                swap(products[j], products[j + 1]);
+                for (int k=0;k<n;k++)
+				{
+                    swap(mas[j][k], mas[j + 1][k]);
+                }
+            }
+        }
+    }
+}
