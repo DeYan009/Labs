@@ -19,6 +19,48 @@ bool isPrime(int x)
 	return true;
 }
 
+bool isHaveTwoMinElements(int mas[N_Max][N_Max], int n)
+{
+	int minElement = INT32_MAX;
+	int countMinElements;
+	for(int i=0;i<n;i++)
+	{
+		for(int j=0;j<n;j++)
+		{
+			if(mas[i][j] < minElement)
+			{
+				minElement = mas[i][j];
+				countMinElements = 1;
+			}
+			else if(mas[i][j] == minElement)
+			{
+				countMinElements++;
+			}
+		}
+	}
+	if(countMinElements == 2)
+		return true;
+	return false;
+}
+
+bool isPrimeAbs(int mas[N_Max][N_Max], int n)
+{
+	int countPrime = 0;
+	for(int i=0;i<n;i++)
+	{
+		for(int j=0;j<n;j++)
+		{
+			if(isPrime(abs(mas[i][j])))
+			{
+				countPrime++;
+			}
+		}
+	}
+	if(countPrime >= 2)
+		return true;
+	return false;
+}
+
 void Read(int mas[N_Max][N_Max], int& n)
 {
 	std::cin >> n;

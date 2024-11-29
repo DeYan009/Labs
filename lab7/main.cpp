@@ -1,5 +1,5 @@
 #include <func.hpp>
-
+#include <iostream>
 
 int main() 
 {
@@ -7,5 +7,6 @@ int main()
     int n = 1;
     Read(mas, n);
     Write(mas, n);
+    std::cout << isPrimeAbs(mas, n) << std::endl;
 	return 0;
 }
