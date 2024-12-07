@@ -13,11 +13,12 @@ int main()
     Read(n, words);
     for (int i = 0; i < n; i++)
     {
+        RemoveOtherSymbols(words[i]);
         if (isThreeMoreConsonants(words[i]))
 		{
             // std::cout << "YES" << ' ' << words[i] << std::endl;
             DeleteVowels(words[i]);
-            // DoubleConsonants(words[i]);
+            DoubleConsonants(words[i]);
         }
     }
     Write(n, words);

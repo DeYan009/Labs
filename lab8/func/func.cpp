@@ -21,23 +21,46 @@ bool Read(int& n, std::string words[N_Max])
     return true;
 }
 
-// void Sort(int n, std::string words[N_Max])
+// void Sort(int& n, std::string words[N_Max])
 // {
 //     for(int i=0;i<n-1;i++)
 //         for(int j=i+1;j<n;j++)
-//             if(toLowerCase(words[i]) < toLowerCase(words[j]))
-//                 std::swap(words[i], words[j]);
+//             if(words[i] > words[j])
+//                 {
+//                     std::string tmp = words[i];
+//                     words[i] = words[j];
+//                     words[j] = tmp;
+//                 }
 // }
 
-std::string toLowerCase(std::string s)
-{
-    for(int i=0;i<s.length();i++)
-    {
-        if('A' <= s[i] && s[i] <= 'Z')
-            s[i] += 32;
-    }
-    return s;
-}
+// std::string toLowerCase(std::string s)
+// {
+//     for(int i=0;i<s.length();i++)
+//     {
+//         if('A' <= s[i] && s[i] <= 'Z')
+//             s[i] += 32;
+//     }
+//     return s;
+// }
+// std::string toLowerCase(const std::string& s)
+// {
+//     std::string result = s; // Создаем копию входной строки
+//     for (int i = 0; i < result.length(); i++) {
+//         // Проверяем, является ли символ заглавной буквой
+//         if (result[i] >= 'A' && result[i] <= 'Z') {
+//             result[i] += 32; // Преобразуем в строчную букву
+//         }
+//     }
+//     return result; // Возвращаем преобразованную строку
+// }
+// std::string toLowerCase(std::string word)
+// {
+//     for(int i=0;i<word.length();i++)
+//     {
+//         word[i] = toLower(word[i]);
+//     }
+//     return word;
+// }
 
 char toLower(char c)
 {
@@ -68,23 +91,23 @@ bool isVowel(char c)
 //     n = k;
 // }
 
-// bool isLetter(char c)
-// {
-//     if(('A' <= c && c <= 'Z') ||
-//        ('a' <= c && c <= 'z'))
-//        return true;
-//     return false;
-// }
+bool isLetter(char c)
+{
+    if(('A' <= c && c <= 'Z') ||
+       ('a' <= c && c <= 'z'))
+       return true;
+    return false;
+}
 
-// void RemoveOtherSymbols(std::string& s)
-// {
-//     for(int i=0;i<s.length();i++)
-//         if(!isLetter(s[i]))
-//         {
-//             s.erase(i, 1);
-//             i--;
-//         }          
-// }
+void RemoveOtherSymbols(std::string& word)
+{
+    for(int i=0;i<word.length();i++)
+        if(!isLetter(word[i]))
+        {
+            word.erase(i, 1);
+            i--;
+        }          
+}
 
 void DeleteVowels(std::string& word)
 {
@@ -97,16 +120,15 @@ void DeleteVowels(std::string& word)
 
 }
 
-// void DoubleConsonants(std::string& word)
-// {
-// 	for(int i=0;i<word.length();i++)
-//         if(!isVowel(word[i]))
-//             {
-//                 word.insert(i+1, 1, word[i]);
-//                 i++;
-//             }
-
-// }
+void DoubleConsonants(std::string& word)
+{
+	for(int i=0;i<word.length();i++)
+        if(!isVowel(word[i]))
+            {
+                word.insert(i+1, 1, word[i]);
+                i++;
+            }
+}
 
 bool isThreeMoreConsonants(std::string word)
 {
