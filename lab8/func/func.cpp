@@ -1,5 +1,5 @@
 #include <func.hpp>
-#include <iostream>
+
 #include <fstream>
 
 bool Read(int& n, std::string words[N_Max])
@@ -55,20 +55,60 @@ bool isVowel(char c)
     return false;
 }
 
-void DeliteElem(int& n, std::string words[N_Max])
+// void DeliteElem(int& n, std::string words[N_Max])
+// {
+//     int k = 0;
+//     for (int i = 0; i < n; i++) {
+//         if (!isThreeMoreConsonants(words[i]))
+// 		{
+//             words[k] = words[i];
+//             k++;
+//         }
+//     }
+//     n = k;
+// }
+
+// bool isLetter(char c)
+// {
+//     if(('A' <= c && c <= 'Z') ||
+//        ('a' <= c && c <= 'z'))
+//        return true;
+//     return false;
+// }
+
+// void RemoveOtherSymbols(std::string& s)
+// {
+//     for(int i=0;i<s.length();i++)
+//         if(!isLetter(s[i]))
+//         {
+//             s.erase(i, 1);
+//             i--;
+//         }          
+// }
+
+void DeleteVowels(std::string& word)
 {
-    int k = 0;
-    for (int i = 0; i < n; i++) {
-        if (!isThreeMoreConsonants(words[i]))
-		{
-            words[k] = words[i];
-            k++;
-        }
-    }
-    n = k;
+	for(int i=0;i<word.length();i++)
+        if(isVowel(word[i]))
+            {
+                word.erase(i, 1);
+                i--;
+            }
+
 }
 
-bool isThreeMoreConsonants(const std::string word)
+// void DoubleConsonants(std::string& word)
+// {
+// 	for(int i=0;i<word.length();i++)
+//         if(!isVowel(word[i]))
+//             {
+//                 word.insert(i+1, 1, word[i]);
+//                 i++;
+//             }
+
+// }
+
+bool isThreeMoreConsonants(std::string word)
 {
 	int cnt = 0;
 	for(int i=0;i<word.length();i++)

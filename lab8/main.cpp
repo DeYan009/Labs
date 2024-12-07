@@ -11,7 +11,15 @@ int main()
     int n;
     std::string words[N_Max];
     Read(n, words);
-    DeliteElem(n, words);
+    for (int i = 0; i < n; i++)
+    {
+        if (isThreeMoreConsonants(words[i]))
+		{
+            // std::cout << "YES" << ' ' << words[i] << std::endl;
+            DeleteVowels(words[i]);
+            // DoubleConsonants(words[i]);
+        }
+    }
     Write(n, words);
     // ex 3
     
