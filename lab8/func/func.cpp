@@ -74,7 +74,7 @@ std::string toLowerCase(std::string word)
     {
         newword += toLower(word[i]);
     }
-    return word;
+    return newword;
 }
 
 std::string toUpperCase(std::string word)
@@ -84,7 +84,7 @@ std::string toUpperCase(std::string word)
     {
         newword += toUpper(word[i]);
     }
-    return word;
+    return newword;
 }
 
 bool isVowel(char c)
