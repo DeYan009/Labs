@@ -28,6 +28,13 @@ char toLower(char c)
     return c;
 }
 
+char toUpper(char c)
+{
+    if('a' <= c && c <= 'z')
+        c -= 32;
+    return c;
+}
+
 void Sort(int& n, std::string words[N_Max])
 {
     for(int i=0;i<n-1;i++)
@@ -66,6 +73,16 @@ std::string toLowerCase(std::string word)
     for(int i=0;i<word.length();i++)
     {
         newword += toLower(word[i]);
+    }
+    return word;
+}
+
+std::string toUpperCase(std::string word)
+{
+    std::string newword = "";
+    for(int i=0;i<word.length();i++)
+    {
+        newword += toUpper(word[i]);
     }
     return word;
 }
@@ -131,6 +148,20 @@ void DoubleConsonants(std::string& word)
             }
 }
 
+void NewFormat(std::string& word)
+{
+    std::string dl = "";
+    for(int i=0;i<word.length()-1;i++)
+    {
+        if(word[i] == word[i+1] && isLetter(word[i]))
+            {
+                dl += word[i];
+                i++;
+            }
+    }
+    word = toUpperCase(word) + "(" + dl + ")";
+}
+
 bool isThreeMoreConsonants(std::string word)
 {
 	int cnt = 0;
@@ -138,6 +169,17 @@ bool isThreeMoreConsonants(std::string word)
         if(!isVowel(word[i]))
             cnt++;
     return cnt > 3;
+}
+
+bool isDoubleLetter(const std::string word)
+{
+    bool doubleletter = false;
+    for(int i=0;i<word.length()-1;i++)
+    {
+        if(word[i] == word[i+1] && isLetter(word[i]))
+            doubleletter = true;
+    }
+    return doubleletter;
 }
 
 void Write(int& n, std::string words[N_Max])
