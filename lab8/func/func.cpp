@@ -21,17 +21,24 @@ bool Read(int& n, std::string words[N_Max])
     return true;
 }
 
-// void Sort(int& n, std::string words[N_Max])
-// {
-//     for(int i=0;i<n-1;i++)
-//         for(int j=i+1;j<n;j++)
-//             if(words[i] > words[j])
-//                 {
-//                     std::string tmp = words[i];
-//                     words[i] = words[j];
-//                     words[j] = tmp;
-//                 }
-// }
+char toLower(char c)
+{
+    if('A' <= c && c <= 'Z')
+        c += 32;
+    return c;
+}
+
+void Sort(int& n, std::string words[N_Max])
+{
+    for(int i=0;i<n-1;i++)
+        for(int j=i+1;j<n;j++)
+            if(words[i] > words[j])
+                {
+                    std::string tmp = words[i];
+                    words[i] = words[j];
+                    words[j] = tmp;
+                }
+}
 
 // std::string toLowerCase(std::string s)
 // {
@@ -53,20 +60,14 @@ bool Read(int& n, std::string words[N_Max])
 //     }
 //     return result; // Возвращаем преобразованную строку
 // }
-// std::string toLowerCase(std::string word)
-// {
-//     for(int i=0;i<word.length();i++)
-//     {
-//         word[i] = toLower(word[i]);
-//     }
-//     return word;
-// }
-
-char toLower(char c)
+std::string toLowerCase(std::string word)
 {
-    if('A' <= c && c <= 'Z')
-        c += 32;
-    return c;
+    std::string newword = "";
+    for(int i=0;i<word.length();i++)
+    {
+        newword += toLower(word[i]);
+    }
+    return word;
 }
 
 bool isVowel(char c)

@@ -10,7 +10,8 @@ int main()
 
     int n;
     std::string words[N_Max];
-    Read(n, words);
+    if(!Read(n, words))
+		return -1;
     for (int i = 0; i < n; i++)
     {
         RemoveOtherSymbols(words[i]);
@@ -21,8 +22,17 @@ int main()
             DoubleConsonants(words[i]);
         }
     }
+    // Write(n, words);
+    // std::cout << "+++++++++++++++++++" << std::endl;
+    Sort(n, words);
     Write(n, words);
-    // ex 3
+
+    // // ex 3
+    // int n;
+    // std::string words[N_Max];
+    // if(!Read(n, words))
+	// 	return -1;
     
-	return 0;
+    
+	// return 0;
 }
