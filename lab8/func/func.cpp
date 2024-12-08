@@ -47,6 +47,46 @@ void Sort(int& n, std::string words[N_Max])
                 }
 }
 
+void SortLenght(int& n, std::string words[N_Max])
+{
+    for(int i=0;i<n-1;i++)
+        for(int j=i+1;j<n;j++)
+            if(words[i].length() < words[j].length())
+                {
+                    std::string tmp = words[i];
+                    words[i] = words[j];
+                    words[j] = tmp;
+                }
+}
+
+void UnicWords(int& n, std::string words[N_Max])
+{
+    int unic_n = 0;
+    std::string unicwords[N_Max];
+    bool unicFlag;
+    for(int i=0;i<n;i++)
+    {
+        unicFlag = true;
+        for(int j=0;j<unic_n;j++)
+            if(words[i] == unicwords[j])
+                {
+                    unicFlag = false;
+                    break;
+                }
+        if(unicFlag)
+            {
+                unicwords[unic_n] = words[i];
+                unic_n++;
+            }
+    }
+    for (int i = 0; i < unic_n; i++)
+    {
+        words[i] = unicwords[i];
+    }
+    n = unic_n;
+        
+}
+
 // std::string toLowerCase(std::string s)
 // {
 //     for(int i=0;i<s.length();i++)
@@ -160,6 +200,18 @@ void NewFormat(std::string& word)
             }
     }
     word = toUpperCase(word) + "(" + dl + ")";
+}
+
+bool isConsonantsAlphabet(std::string word)
+{
+    DeleteVowels(word);
+    if(word == "")
+        return false;
+    word = toLowerCase(word);
+    for(int i=0;i<word.length()-1;i++)
+        if(word[i] > word[i+1])
+            return false;
+    return true;
 }
 
 bool isThreeMoreConsonants(std::string word)
