@@ -14,16 +14,3 @@ int main()
     std::cout << static_cast<int>(*(nbyte+2)) << std::endl;
 	return 0;
 }
-// #include <iostream>
-
-// int main() {
-//     unsigned short number = 500; // Пример числа
-//     unsigned char* bytePtr = reinterpret_cast<unsigned char*>(&number); // Указатель на байты числа
-
-//     std::cout << "number " << number << ":\n";
-//     for (size_t i = 0; i < sizeof(unsigned short); ++i) {
-//         std::cout << "byte " << i << ": "  << static_cast<int>(bytePtr[i]) << std::endl;
-//     }
-
-//     return 0;
-// }
