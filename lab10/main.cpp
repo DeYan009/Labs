@@ -11,7 +11,26 @@ int main()
     // std::cout << mt::isSorted(head);
     if(mt::isSorted(head))
     {
-        std::cout << "cool" << std::endl;
+        mt::Node* current = head;
+        int i = 1;
+		while(current != nullptr)
+        {
+            // std::cout << current->data << i <<std::endl;
+            if(!mt::ContainsDigits246(current->data))
+            {
+                // std::cout << current->data <<std::endl;
+                mt::Remove(head, i);
+                current = current->next;
+                // current = head;
+                // i = 1;
+                // std::cout << current->data <<std::endl;
+            }
+            else
+            {
+                i++;
+                current = current->next;
+            }
+        }
     }
     else
         mt::Sort(head);

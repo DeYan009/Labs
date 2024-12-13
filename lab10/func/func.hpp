@@ -16,6 +16,7 @@ namespace mt
     void Clear(Node* head);
     void Make(Node*& head);
     bool Read(Node* head);
+    bool ContainsDigits246(int number);
     bool isSorted(Node* head);
     void Sort(Node* head);
 }

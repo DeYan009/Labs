@@ -71,6 +71,20 @@ namespace mt
 
 	}
 
+	bool ContainsDigits246(int number)
+	{
+    while (number > 0)
+	{
+        int digit = number % 10;
+        if (digit == 2 || digit == 4 || digit == 6)
+		{
+            return true;
+        }
+        number /= 10;
+    }
+    return false;
+    }
+
 	void swap(int& a, int& b)
 	{
 		int tmp = a;
