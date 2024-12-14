@@ -85,6 +85,20 @@ namespace mt
     return false;
     }
 
+    bool ContainsDigits69(int number)
+	{
+    while (number > 0)
+	{
+        int digit = number % 10;
+        if (digit == 9 || digit == 6)
+		{
+            return true;
+        }
+        number /= 10;
+    }
+    return false;
+    }
+
 	void swap(int& a, int& b)
 	{
 		int tmp = a;
