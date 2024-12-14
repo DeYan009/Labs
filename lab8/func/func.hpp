@@ -17,3 +17,5 @@ bool isConsonantsAlphabet(std::string word);
 bool isThreeMoreConsonants(const std::string word);
 bool isDoubleLetter(const std::string word);
 void Write(int& n, std::string words[N_Max]);
+bool Read3(int& n, std::string words[N_Max]);
+void Write3(int& n, std::string words[N_Max]);

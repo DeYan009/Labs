@@ -226,6 +226,8 @@ bool isThreeMoreConsonants(std::string word)
 bool isDoubleLetter(const std::string word)
 {
     bool doubleletter = false;
+    if(word == " " || word == "\n" || word == "")
+        return doubleletter;
     for(int i=0;i<word.length()-1;i++)
     {
         if(word[i] == word[i+1] && isLetter(word[i]))
@@ -241,6 +243,62 @@ void Write(int& n, std::string words[N_Max])
 	{
         std::cout << "<" << words[i] << ">" << std::endl;
 		out << words[i] << std::endl;
+	}
+
+}
+
+bool Read3(int& n, std::string words[N_Max])
+{
+    std::ifstream in("input.txt");
+    if(!in.is_open())
+    {
+        std::cout << "File not opened" << std::endl;
+        return false;
+    }
+
+    n = 0;
+    std::string line;
+    std::string word;
+    while(!in.eof())
+    {
+        while(getline(in, line))
+        {
+            word = "";
+            for(int i=0;i<line.length();i++)
+            {
+                if(isLetter(line[i]))
+                    word += line[i];
+                else
+                {
+                    words[n] = word;
+                    word = "";
+                    n++;
+                    words[n] = line[i];
+                    n++;
+                }
+            }
+            if(!word.empty())
+            {
+                words[n] = word;
+                word = "";
+                n++;
+            }
+            words[n] = "\n";
+            n++;
+        }
+        
+    }
+
+    return true;
+}
+
+void Write3(int& n, std::string words[N_Max])
+{
+	std::ofstream out("output.txt");
+    for(int i=0;i<n;i++)
+	{
+        std::cout << "<" << words[i] << ">" << std::endl;
+		out << words[i];
 	}
 
 }
