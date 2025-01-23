@@ -68,7 +68,21 @@ void DeletePrime(Node* sent) {
 
 void Doubl10(Node* sent) // ne rabotaet
 {
-    std::cout << "error";
+    Node* p = sent->next;
+    while(p != sent)
+    {
+        if(p->data % 10 == 0)
+        {
+            Node* q = new Node;
+            q->data = p->data;
+            q->pref = p;
+            q->next = p->next;
+            p->next->pref = q;
+            p->next = q;
+            p = p->next;
+        }
+        p = p->next;
+    }
 }
 
 void In(Node* sent)
@@ -103,7 +117,7 @@ bool End24(Node* sent) // ne rabotaet
 
 void Sort(Node* sent) // ne rabotaet
 {
-   std::cout << "error"; 
+   std::cout << "error sort"; 
 }
 
 int main()
