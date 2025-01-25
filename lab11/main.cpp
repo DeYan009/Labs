@@ -127,19 +127,13 @@ int GetFD(int n)
 
 void Sort(Node* sent)
 {
-   if (sent->next == sent || sent->next->next == sent)
-    {
-        return;
-    }
-
     Node* current = sent->next->next;
 
     while (current != sent)
     {
-        Node* key = current;
         Node* prev = current->pref;
 
-        while (prev != sent && GetFD(prev->data) < GetFD(key->data))
+        while (prev != sent && GetFD(prev->data) < GetFD(current->data))
         {
             prev = prev->pref;
         }
