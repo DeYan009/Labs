@@ -66,7 +66,7 @@ void DeletePrime(Node* sent) {
     }
 }
 
-void Doubl10(Node* sent) // ne rabotaet
+void Doubl10(Node* sent)
 {
     Node* p = sent->next;
     while(p != sent)
@@ -98,7 +98,7 @@ void In(Node* sent)
 
 }
 
-bool End24(Node* sent) // ne rabotaet
+bool End24(Node* sent)
 {
     Node* p = sent->next;
     int count = 0;
@@ -115,9 +115,50 @@ bool End24(Node* sent) // ne rabotaet
     return false;
 }
 
+int GetFD(int n)
+{
+    n = abs(n);
+    while (n > 9)
+    {
+        n /= 10;
+    }
+    return n;
+}
+
 void Sort(Node* sent) // ne rabotaet
 {
-   std::cout << "error sort"; 
+   if (sent->next == sent || sent->next->next == sent) {
+        // Если список пустой или содержит только один элемент, ничего не делаем
+        return;
+    }
+
+    Node* current = sent->next->next; // Начинаем со второго элемента
+
+    while (current != sent) {
+        Node* key = current; // Сохраняем текущий элемент
+        Node* prev = current->pref; // Указатель на предыдущий элемент
+
+        // Находим место для вставки, сравнивая первую цифру
+        while (prev != sent && GetFD(prev->data) < GetFD(key->data)) {
+            prev = prev->pref; // Идем назад по списку
+        }
+
+        // Если мы нашли место для вставки
+        if (prev != current->pref) {
+            // Удаляем текущий элемент из его места
+            current->pref->next = current->next;
+            current->next->pref = current->pref;
+
+            // Вставляем элемент после prev
+            current->next = prev->next;
+            current->pref = prev;
+
+            prev->next->pref = current; // Обновляем указатель следующего элемента
+            prev->next = current; // Вставляем элемент
+        }
+
+        current = current->next; // Переходим к следующему элементу
+    }
 }
 
 int main()
