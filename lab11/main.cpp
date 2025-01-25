@@ -125,39 +125,38 @@ int GetFD(int n)
     return n;
 }
 
-void Sort(Node* sent) // ne rabotaet
+void Sort(Node* sent)
 {
-   if (sent->next == sent || sent->next->next == sent) {
-        // Если список пустой или содержит только один элемент, ничего не делаем
+   if (sent->next == sent || sent->next->next == sent)
+    {
         return;
     }
 
-    Node* current = sent->next->next; // Начинаем со второго элемента
+    Node* current = sent->next->next;
 
-    while (current != sent) {
-        Node* key = current; // Сохраняем текущий элемент
-        Node* prev = current->pref; // Указатель на предыдущий элемент
+    while (current != sent)
+    {
+        Node* key = current;
+        Node* prev = current->pref;
 
-        // Находим место для вставки, сравнивая первую цифру
-        while (prev != sent && GetFD(prev->data) < GetFD(key->data)) {
-            prev = prev->pref; // Идем назад по списку
+        while (prev != sent && GetFD(prev->data) < GetFD(key->data))
+        {
+            prev = prev->pref;
         }
 
-        // Если мы нашли место для вставки
-        if (prev != current->pref) {
-            // Удаляем текущий элемент из его места
+        if (prev != current->pref)
+        {
             current->pref->next = current->next;
             current->next->pref = current->pref;
 
-            // Вставляем элемент после prev
             current->next = prev->next;
             current->pref = prev;
 
-            prev->next->pref = current; // Обновляем указатель следующего элемента
-            prev->next = current; // Вставляем элемент
+            prev->next->pref = current;
+            prev->next = current;
         }
 
-        current = current->next; // Переходим к следующему элементу
+        current = current->next;
     }
 }
 
@@ -174,9 +173,7 @@ int main()
     else
     {
         Print(sent);
-        std::cout << "-----" << std::endl;
         DeletePrime(sent);
-        std::cout << "-----" << std::endl;
         Doubl10(sent);
     }
 
