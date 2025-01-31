@@ -1,6 +1,5 @@
 #include <iostream>
 
-// #pragma pack
 struct Node
 {
     int data;
