@@ -61,9 +61,10 @@ int main()
     // // std::cout << lenstring("");
 
     // ex 2
-    int s[100] = {1, 2, 4 , 8, 7, 4};
-    QuickSort(1, 2, s);
-    for(int i=0;i<6;i++)
+    const int n = 10;
+    int s[n] = {1, 2, 4 , 8, 7, 4};
+    QuickSort(0, n-1, s);
+    for(int i=0;i<n;i++)
         std::cout << s[i];
 
     // // ex 3
@@ -98,5 +99,5 @@ int main()
     //         std::cout << field[i][j] << ' ';
     //     std::cout << std::endl;
     // }
-	return 0;
+	// return 0;
 }
