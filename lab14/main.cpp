@@ -15,17 +15,12 @@ class BigInt
             size_t len = value.length();
             for(int i=0;i<len;i++)
                 m_value[i] = value[len-i-1] - '0';
-            for(int i=len;i<N_Max;i++) {
+            for(int i=len;i<N_Max;i++)
+            {
                 m_value[i] = 0;
             }
             m_size = len;
         }
-
-        // BigInt(const int& value) 
-        // {
-        //     BigInt(std::to_string(value));
-        // }
-
 
         BigInt(const BigInt& other) 
         {
@@ -224,78 +219,43 @@ std::ostream& operator<<(std::ostream& out, const BigInt& other)
 }
 
 int main() {
-    // BigInt x;
-    // std::cin >> x;
-    // BigInt y("999");
-    
-    // BigInt z = x + y;
+    // 1 Базовый конструктор
+    BigInt a;
+    std::cout << a << std::endl;
 
-    // for(BigInt i = 0; i < BigInt("1000"); i+=1)
-    // {
-
-    // }
-
-    // if(x < y)
-    // {
-    //     std::cout << "LESS" << std::endl;
-    // }
-    
-    // std::cout << z << std::endl;
-
-
-    // // BigInt a;
-    // BigInt b("2");
-    // BigInt d; // copy
-    // // BigInt c = b;
-    // BigInt e;
-    // std::cin >> e;
-    // std::cout << "b " << b << std::endl;
-    // d = b + b;
-    // std::cout << "d " << d << std::endl;
-    // std::cout << "e " << e << std::endl;
-    // b += e;
-    // std::cout << "b+=e " << b << std::endl;
-    // std::cout << "e " << e << std::endl;
-    // std::cout << d + b;
-
-
-    // 1. Проверка базового конструктора
-    BigInt a; // Базовый конструктор
-    std::cout << "1. Базовый конструктор: a = " << a << std::endl;
-
-    // 2. Проверка конструктора из строки
+    // 2 Конструктор из строки
     BigInt b("12345");
-    std::cout << "2. Конструктор из строки: b = " << b << std::endl;
+    std::cout << b << std::endl;
 
-    // 3. Проверка конструктора копирования
+    // 3 Конструктора копирования
     BigInt c(b);
-    std::cout << "3. Конструктор копирования: c = " << c << std::endl;
+    std::cout << c << std::endl;
 
-    // 4. Проверка оператора присваивания
+    // 4 Оператор присваивания
     BigInt d;
     d = c;
-    std::cout << "4. Оператор присваивания: d = " << d << std::endl;
+    std::cout << d << std::endl;
 
-    // 5. Проверка операторов + и +=
+    // 5 Операторы + и +=
     BigInt e("999");
     BigInt f("1");
     e += f;
-    std::cout << "5. Оператор +=: e += f = " << e << std::endl;
+    std::cout << e << std::endl;
 
     BigInt g = b + c;
-    std::cout << "5. Оператор +: b + c = " << g << std::endl;
+    std::cout << g << std::endl;
 
-    // 6. Проверка операторов * и *=
+    // 6 Операторы * и *=
     BigInt h("12");
     BigInt i("34");
     h *= i;
-    std::cout << "6. Оператор *=: h *= i = " << h << std::endl;
+    std::cout << h << std::endl;
 
     BigInt j = b * c;
-    std::cout << "6. Оператор *: b * c = " << j << std::endl;
+    std::cout << j << std::endl;
 
-    // 7. Проверка операторов сравнения
-    std::cout << "7. Операторы сравнения:" << std::endl;
+    // 7 Операторы сравнения
+    std::cout << std::endl;
     std::cout << "b < c: " << (b < c) << std::endl;
     std::cout << "b > c: " << (b > c) << std::endl;
     std::cout << "b <= c: " << (b <= c) << std::endl;
@@ -303,11 +263,10 @@ int main() {
     std::cout << "b == c: " << (b == c) << std::endl;
     std::cout << "b != c: " << (b != c) << std::endl;
 
-    // 8. Проверка операторов ввода и вывода
+    // 8 Оператоы ввода и вывода
     BigInt k;
-    std::cout << "8. Введите число для k: ";
     std::cin >> k;
-    std::cout << "Вы ввели: " << k << std::endl;
+    std::cout << k << std::endl;
 
     return 0;
 }
