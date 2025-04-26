@@ -2,7 +2,7 @@
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Lab Work: SFML Shapes");
+    sf::RenderWindow window(sf::VideoMode(800, 600), "Lab18");
     window.setFramerateLimit(60);
 
     sf::CircleShape circle(50.f);
