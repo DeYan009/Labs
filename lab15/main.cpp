@@ -19,6 +19,7 @@ public:
         m_arr = new int[size];
         m_cap = size;
         m_size = size;
+        // std::fill
         for(int i=0;i<m_size;i++)
             m_arr[i] = value;
 
@@ -146,15 +147,6 @@ public:
     {
         return m_arr[m_size - 1];
     }
-
-    // int& at(size_t index)
-    // {
-    //     // Проверка
-    //     return m_arr[index];
-    // }
-
-    // MyVector(const MyVector&) = delete;
-    // MyVector& operator=(const MyVector&) = delete;
 };
 
 #include <iostream>
