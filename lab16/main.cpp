@@ -1,4 +1,6 @@
 #include <iostream>
+#include <stdexcept>
+// #include <cassert>
 
 template <typename T, size_t N, size_t M>
 class Matrix
@@ -17,6 +19,25 @@ public:
             }
         }
     }
+
+    // // Конструктор для инициализации списком
+    // Matrix(std::initializer_list<std::initializer_list<T>> init)
+    // {
+    //     size_t i = 0;
+    //     for (const auto& row : init)
+    //     {
+    //         size_t j = 0;
+    //         for (const auto& val : row)
+    //         {
+    //             if (i < N && j < M)
+    //             {
+    //                 m_matrix[i][j] = val;
+    //             }
+    //             j++;
+    //         }
+    //         i++;
+    //     }
+    // }
 
     Matrix(const Matrix& other)
     {
@@ -43,29 +64,34 @@ public:
         return *this;
     }
 
-    // Оператор ввода
-    friend std::istream& operator>>(std::istream& is, Matrix& matrix) {
-        for (size_t i = 0; i < N; ++i) {
-            for (size_t j = 0; j < M; ++j) {
-                is >> matrix.data[i][j];
+    friend std::istream& operator>>(std::istream& is, Matrix& matrix)
+    {
+        for (size_t i = 0; i < N; ++i)
+        {
+            for (size_t j = 0; j < M; ++j)
+            {
+                is >> matrix.m_matrix[i][j];
             }
         }
         return is;
     }
 
-    // Оператор вывода
-    friend std::ostream& operator<<(std::ostream& os, const Matrix& matrix) {
-        for (size_t i = 0; i < N; ++i) {
-            for (size_t j = 0; j < M; ++j) {
-                os << matrix.data[i][j] << ' ';
+    friend std::ostream& operator<<(std::ostream& os, const Matrix& matrix)
+    {
+        for (size_t i = 0; i < N; ++i)
+        {
+            for (size_t j = 0; j < M; ++j)
+            {
+                os << matrix.m_matrix[i][j] << ' ';
             }
             if (i != N - 1) os << '\n';
         }
         return os;
     }
-
-    Matrix operator+(const Matrix& other) const
+    template <typename U, size_t N2, size_t M2>
+    Matrix<T, N, M> operator+(const Matrix<U, N2, M2>& other) const
     {
+        static_assert(N == N2 && M == M2, "Matrix dimensions must match for addition");
         Matrix res;
         for (size_t i = 0; i < N; ++i)
         {
@@ -89,19 +115,17 @@ public:
         return *this;
     }
 
+    template <size_t N2, size_t M2>
+    Matrix<T, N, M2> operator*(const Matrix<T, N2, M2>& other) const {
+        static_assert(M == N2, 
+            "Number of columns in the first matrix must match rows in the second");
 
-    template <size_t K>
-    Matrix<T, N, K> operator*(const Matrix<T, M, K>& other) const
-    {
-        Matrix<T, N, K> res;
-        for (size_t i = 0; i < N; ++i)
-        {
-            for (size_t j = 0; j < K; ++j)
-            {
+        Matrix<T, N, M2> res;
+        for (size_t i = 0; i < N; ++i) {
+            for (size_t j = 0; j < M2; ++j) {
                 res(i, j) = T();
-                for (size_t k = 0; k < M; ++k)
-                {
-                    res(i, j) += m_matrix[i][k] * other.m_matrix[k][j];
+                for (size_t k = 0; k < M; ++k) {
+                    res(i, j) += (*this)(i, k) * other(k, j);
                 }
             }
         }
@@ -114,7 +138,7 @@ public:
         {
             for (size_t j = 0; j < M; ++j)
             {
-                data[i][j] *= scalar;
+                m_matrix[i][j] *= scalar;
             }
         }
         return *this;
@@ -139,32 +163,95 @@ public:
         return temp;
     }
 
-    // Метод вычисления определителя (только для квадратных матриц)
     T determinant() const {
         static_assert(N == M, "Determinant is only defined for square matrices");
         
-        if constexpr (N == 1) {
-            return data[0][0];
-        } else if constexpr (N == 2) {
-            return data[0][0] * data[1][1] - data[0][1] * data[1][0];
-        } else if constexpr (N == 3) {
-            return data[0][0] * data[1][1] * data[2][2] +
-                   data[0][1] * data[1][2] * data[2][0] +
-                   data[0][2] * data[1][0] * data[2][1] -
-                   data[0][2] * data[1][1] * data[2][0] -
-                   data[0][0] * data[1][2] * data[2][1] -
-                   data[0][1] * data[1][0] * data[2][2];
+        if constexpr (N == 1)
+        {
+            return m_matrix[0][0];
+        }
+        else if constexpr (N == 2)
+        {
+            return m_matrix[0][0] * m_matrix[1][1] - m_matrix[0][1] * m_matrix[1][0];
+        }
+        else
+        {
+            T det = 0;
+            for (size_t col = 0; col < N; ++col) {
+                // Минор
+                Matrix<T, N-1, N-1> minor;
+                for (size_t i = 1; i < N; ++i) {
+                    size_t minor_col = 0;
+                    for (size_t j = 0; j < N; ++j) {
+                        if (j == col) continue;
+                        minor(i-1, minor_col++) = m_matrix[i][j];
+                    }
+                }
+                
+                // Рекурсия
+                T sign = (col % 2 == 0) ? 1 : -1;
+                det += sign * m_matrix[0][col] * minor.determinant();
+            }
+            return det;
         }
     }
 
     T& operator()(size_t i, size_t j)
     {
-        return data[i][j];
+        return m_matrix[i][j];
     }
+    const T& operator()(size_t i, size_t j) const
+    {
+        return m_matrix[i][j];
+    }
+
+    // constexpr size_t Rows() const noexcept { return N; }
+    // constexpr size_t Cols() const noexcept { return M; }
 };
 
+
+// void test_determinant() {
+//     // Тест 1: Матрица 1x1
+//     {
+//         Matrix<int, 1, 1> mat = {{5}};
+//         std::cout << "1x1 matrix det: " << mat.determinant();
+//         assert(mat.determinant() == 5);
+//         std::cout << "OK\n";
+//     }
+
+//     // Тест 2: Матрица 2x2
+//     {
+//         Matrix<int, 2, 2> mat = {{1, 2}, 
+//                                 {3, 4}};
+//         std::cout << "2x2 matrix det: " << mat.determinant();
+//         assert(mat.determinant() == -2);
+//         std::cout << "OK\n";
+//     }
+
+//     // Тест 3: Матрица 3x3 (нулевой определитель)
+//     {
+//         Matrix<int, 3, 3> mat = {{1, 2, 3},
+//                                 {4, 5, 6},
+//                                 {7, 8, 9}};
+//         std::cout << "3x3 matrix det: " << mat.determinant();
+//         assert(mat.determinant() == 0);
+//         std::cout << " OK\n";
+//     }
+
+//     // Тест 4: Матрица 3x3 (ненулевой определитель)
+//     {
+//         Matrix<int, 3, 3> mat = {{1, 0, 2},
+//                                 {0, 3, 0},
+//                                 {4, 0, 5}};
+//         std::cout << "3x3 matrix det: " << mat.determinant();
+//         assert(mat.determinant() == -9);
+//         std::cout << "OK\n";
+//     }
+
+//     std::cout << "All simple tests passed!\n";
+// }
+
 int main() {
-    // Демонстрация работы с классом
     
     // Создание и ввод матрицы 2x2
     Matrix<int, 2, 2> mat1;
@@ -205,6 +292,44 @@ int main() {
 
     // Доступ к элементам по индексу
     std::cout << "Element (1,1) of matrix 1: " << mat1(1, 1) << "\n\n";
+
+
+
+
+
+
+    // Matrix<int, 2, 3> matA;
+    // Matrix<int, 2, 3> matB;
+    // Matrix<int, 3, 4> matC;
+
+    // // === Тест 1: Сложение матриц одинакового размера (должно работать) ===
+    // std::cout << "Test 1: Correct addition\n";
+    // auto matSum = matA + matB;  // OK: 2x3 + 2x3
+
+    // // === Тест 2: Сложение матриц разного размера (должно НЕ компилироваться) ===
+    // std::cout << "Test 2: Invalid addition (uncomment to see error)\n";
+    // // auto matSumError = matA + matC;  // Ошибка: 2x3 + 3x4
+
+    // // === Тест 3: += с матрицей неверного размера ===
+    // std::cout << "Test 3: Invalid += (uncomment to see error)\n";
+    // matA += matB;  // Ошибка: 2x3 += 3x4
+
+    // // === Тест 4: Умножение совместимых матриц (должно работать) ===
+    // std::cout << "Test 4: Correct multiplication\n";
+    // // auto matMul = matA * matC;  // OK: 2x3 * 3x4 = 2x4
+    // // std::cout << "Matrix 1:\n" << matMul << "\n\n";
+
+    // // === Тест 5: Умножение несовместимых матриц (должно НЕ компилироваться) ===
+    // std::cout << "Test 5: Invalid multiplication (uncomment to see error)\n";
+    // auto matMulError = matA * matB;  // Ошибка: 2x3 * 2x3 (3 != 2)
+
+    // // === Тест 6: *= с несовместимой матрицей ===
+    // Matrix<int, 2, 2> matD;
+    // std::cout << "Test 6: Invalid *= (uncomment to see error)\n";
+    // // matA *= matD;  // Ошибка: 2x3 *= 2x2
+
+    // std::cout << "All tests passed (or failed correctly)!\n";
+    // test_determinant();
 
     return 0;
 }
