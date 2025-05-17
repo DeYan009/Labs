@@ -1,6 +1,227 @@
 #include <iostream>
 #include <stdexcept>
 // #include <cassert>
+#include <string>
+
+
+#define N_Max 1000
+
+class BigInt 
+{
+    char m_value[N_Max];
+    short m_size = 0;
+
+    public:
+        BigInt() = default;
+        
+        BigInt(const std::string& value) 
+        {
+            size_t len = value.length();
+            for(int i=0;i<len;i++)
+                m_value[i] = value[len-i-1] - '0';
+            for(int i=len;i<N_Max;i++)
+            {
+                m_value[i] = 0;
+            }
+            m_size = len;
+        }
+
+        BigInt(const BigInt& other) 
+        {
+            for(int i = 0; i < N_Max; i++)
+            {
+                m_value[i] = other.m_value[i];
+            }
+            m_size = other.m_size;
+        }
+
+        BigInt& operator=(const BigInt& other) 
+        {
+            if (this != &other)
+            {
+                for(int i = 0; i < N_Max; i++)
+                {
+                    m_value[i] = other.m_value[i];
+                }
+                m_size = other.m_size;
+            }
+        return *this;
+        }
+
+        ~BigInt() = default;
+
+        BigInt& operator+=(const BigInt& other)
+        {
+            int carry = 0;
+            int max_size = (m_size > other.m_size) ? m_size : other.m_size;
+
+            for (int i = 0; i < max_size || carry; i++)
+            {
+                if (i < m_size)
+                {
+                    carry += m_value[i];
+                }
+                if (i < other.m_size)
+                {
+                    carry += other.m_value[i];
+                }
+
+                m_value[i] = carry % 10;
+                carry = carry / 10;
+
+                if (i >= m_size)
+                {
+                    m_size++;
+                }
+            }
+
+            return *this;
+        }
+
+        BigInt& operator+=(int other)
+        {
+            *this += BigInt(std::to_string(other));
+            return *this;
+        }
+
+        BigInt operator+(const BigInt& other)
+        {
+            BigInt result(*this);
+            result += other;
+            return result;
+        }
+
+        BigInt& operator*=(const BigInt& other)
+        {
+            BigInt result("0");
+
+            for (int i = 0; i < other.m_size; i++) 
+            {
+                BigInt temp("0");
+                int carry = 0;
+                for (int j = 0; j < m_size || carry; j++) 
+                {
+                    int product = carry;
+                    if (j < m_size)
+                    {
+                        product += m_value[j] * other.m_value[i];
+                    }
+                    temp.m_value[j] = product % 10;
+                    carry = product / 10;
+        
+                    if (j >= temp.m_size) 
+                    {
+                        temp.m_size++;
+                    }
+                }
+        
+                for (int j = temp.m_size - 1; j >= 0; j--)
+                {
+                    temp.m_value[j + i] = temp.m_value[j];
+                }
+                for (int j = 0; j < i; j++)
+                {
+                    temp.m_value[j] = 0;
+                }
+                temp.m_size += i;
+        
+                result += temp;
+            }
+        
+            *this = result;
+            return *this;
+        }
+
+        BigInt operator*(const BigInt& other)
+        {
+            BigInt result(*this);
+            result *= other;
+            return result;
+        }
+
+        bool operator<(const BigInt& other)
+        {
+            if(m_size < other.m_size)
+                return true;
+            else if(m_size > other.m_size)
+                return false;
+            else
+            {
+                for(int i=m_size-1;i>=0;i--)
+                {
+                    if(m_value[i] < other.m_value[i])
+                        return true;
+                    else if(m_value[i] > other.m_value[i])
+                        return false;
+                }
+                return false;
+            }
+        }
+
+        bool operator>=(const BigInt& other)
+        {
+            return !(*this < other);
+        }
+
+        bool operator==(const BigInt& other)
+        {
+            if(m_size != other.m_size)
+                return false;
+            for(int i = 0; i < m_size; i++) {
+                if(m_value[i] != other.m_value[i])
+                    return false;
+            }
+            return true;
+        }
+
+        bool operator!=(const BigInt& other)
+        {
+            return !(*this == other);
+        }
+
+        bool operator>(const BigInt& other)
+        {
+            return !(*this < other) && (*this != other);
+        }
+
+        bool operator<=(const BigInt& other)
+        {
+            return !(*this > other);
+        }
+
+        BigInt operator++(int)
+        {
+            BigInt result(*this);
+            *this += BigInt("1");
+            return result;
+        }
+
+        BigInt& operator++()
+        {
+            *this += BigInt("1");
+            return *this;
+        }
+
+        friend std::ostream& operator<<(std::ostream& out, const BigInt& other);
+};
+
+std::istream& operator>>(std::istream& in, BigInt& other)
+{
+    std::string s;
+    in >> s;
+    other = BigInt(s);
+    return in;
+}
+
+std::ostream& operator<<(std::ostream& out, const BigInt& other)
+{
+    for(int i=0;i<other.m_size;i++)
+    {
+        out << static_cast<short>(other.m_value[other.m_size - i - 1]);
+    }
+    return out;
+}
+
 
 template <typename T, size_t N, size_t M>
 class Matrix
@@ -39,30 +260,31 @@ public:
     //     }
     // }
 
-    Matrix(const Matrix& other)
-    {
-        for (size_t i = 0; i < N; ++i) {
-            for (size_t j = 0; j < M; ++j)
-            {
-                m_matrix[i][j] = other.m_matrix[i][j];
-            }
-        }
-    }
+    // Matrix(const Matrix& other)
+    // {
+    //     for (size_t i = 0; i < N; ++i)
+    //     {
+    //         for (size_t j = 0; j < M; ++j)
+    //         {
+    //             m_matrix[i][j] = other.m_matrix[i][j];
+    //         }
+    //     }
+    // }
 
-    Matrix& operator=(const Matrix& other)
-    {
-        if (this != &other)
-        {
-            for (size_t i = 0; i < N; ++i)
-            {
-                for (size_t j = 0; j < M; ++j)
-                {
-                    m_matrix[i][j] = other.m_matrix[i][j];
-                }
-            }
-        }
-        return *this;
-    }
+    // Matrix& operator=(const Matrix& other)
+    // {
+    //     if (this != &other)
+    //     {
+    //         for (size_t i = 0; i < N; ++i)
+    //         {
+    //             for (size_t j = 0; j < M; ++j)
+    //             {
+    //                 m_matrix[i][j] = other.m_matrix[i][j];
+    //             }
+    //         }
+    //     }
+    //     return *this;
+    // }
 
     friend std::istream& operator>>(std::istream& is, Matrix& matrix)
     {
@@ -116,7 +338,8 @@ public:
     }
 
     template <size_t N2, size_t M2>
-    Matrix<T, N, M2> operator*(const Matrix<T, N2, M2>& other) const {
+    Matrix<T, N, M2> operator*(const Matrix<T, N2, M2>& other) const
+    {
         static_assert(M == N2, 
             "Number of columns in the first matrix must match rows in the second");
 
@@ -163,7 +386,8 @@ public:
         return temp;
     }
 
-    T determinant() const {
+    T determinant() const
+    {
         static_assert(N == M, "Determinant is only defined for square matrices");
         
         if constexpr (N == 1)
@@ -177,12 +401,15 @@ public:
         else
         {
             T det = 0;
-            for (size_t col = 0; col < N; ++col) {
+            for (size_t col = 0; col < N; ++col)
+            {
                 // Минор
                 Matrix<T, N-1, N-1> minor;
-                for (size_t i = 1; i < N; ++i) {
+                for (size_t i = 1; i < N; ++i)
+                {
                     size_t minor_col = 0;
-                    for (size_t j = 0; j < N; ++j) {
+                    for (size_t j = 0; j < N; ++j)
+                    {
                         if (j == col) continue;
                         minor(i-1, minor_col++) = m_matrix[i][j];
                     }
@@ -254,44 +481,48 @@ public:
 int main() {
     
     // Создание и ввод матрицы 2x2
-    Matrix<int, 2, 2> mat1;
+    Matrix<BigInt, 2, 2> mat1;
     std::cout << "Enter 4 elements for 2x2 matrix:\n";
+    std::cout << "Matrix 1:\n" << mat1 << "\n\n";
     std::cin >> mat1;
     std::cout << "Matrix 1:\n" << mat1 << "\n\n";
 
     // Создание и ввод второй матрицы 2x2
-    Matrix<int, 2, 2> mat2;
+    Matrix<BigInt, 2, 2> mat2;
     std::cout << "Enter 4 elements for second 2x2 matrix:\n";
     std::cin >> mat2;
     std::cout << "Matrix 2:\n" << mat2 << "\n\n";
+    Matrix<BigInt, 2, 2> mat3;
+    mat3 = mat2;
+    std::cout << "Matrix 3:\n" << mat3 << "\n\n";
 
-    // Сложение матриц
-    auto sum = mat1 + mat2;
-    std::cout << "Sum of matrices:\n" << sum << "\n\n";
+    // // Сложение матриц
+    // auto sum = mat1 + mat2;
+    // std::cout << "Sum of matrices:\n" << sum << "\n\n";
 
-    // Умножение матриц
-    auto product = mat1 * mat2;
-    std::cout << "Product of matrices:\n" << product << "\n\n";
+    // // Умножение матриц
+    // auto product = mat1 * mat2;
+    // std::cout << "Product of matrices:\n" << product << "\n\n";
 
-    // Вычисление определителя
-    std::cout << "Determinant of matrix 1: " << mat1.determinant() << "\n\n";
+    // // Вычисление определителя
+    // std::cout << "Determinant of matrix 1: " << mat1.determinant() << "\n\n";
 
     // Инкремент матрицы
     std::cout << "Matrix 1 after increment:\n" << ++mat1 << "\n\n";
 
-    // Работа с вектором (матрица 3x1)
-    Matrix<double, 3, 1> vec;
-    vec(0, 0) = 1.5;
-    vec(1, 0) = 2.5;
-    vec(2, 0) = 3.5;
-    std::cout << "Vector:\n" << vec << "\n\n";
+    // // Работа с вектором (матрица 3x1)
+    // Matrix<double, 3, 1> vec;
+    // vec(0, 0) = 1.5;
+    // vec(1, 0) = 2.5;
+    // vec(2, 0) = 3.5;
+    // std::cout << "Vector:\n" << vec << "\n\n";
 
-    // Умножение матрицы на скаляр
-    mat1 *= 2;
-    std::cout << "Matrix 1 multiplied by 2:\n" << mat1 << "\n\n";
+    // // Умножение матрицы на скаляр
+    // mat1 *= 2;
+    // std::cout << "Matrix 1 multiplied by 2:\n" << mat1 << "\n\n";
 
-    // Доступ к элементам по индексу
-    std::cout << "Element (1,1) of matrix 1: " << mat1(1, 1) << "\n\n";
+    // // Доступ к элементам по индексу
+    // std::cout << "Element (1,1) of matrix 1: " << mat1(1, 1) << "\n\n";
 
 
 
